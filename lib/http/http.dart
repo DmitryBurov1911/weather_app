@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+// Добавить алиасы
 import '../model/weather_model.dart';
 
 class Http {
   Dio dio = Dio();
 
+  // вынеси в BASE_URL
   static const MAIN_URL = "https://api.openweathermap.org/data/2.5/weather";
   final String apiKey;
 
@@ -32,7 +34,7 @@ class Http {
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 10,
-        timeLimit: Duration(seconds: 30),
+        timeLimit: Duration(seconds: 20),
       ),
     );
 
