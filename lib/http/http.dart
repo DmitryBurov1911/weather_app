@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+// Добавить алиасы
 import '../model/weather_model.dart';
 
 class Http {
