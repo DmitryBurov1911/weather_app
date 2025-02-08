@@ -7,6 +7,7 @@ import '../model/weather_model.dart';
 class Http {
   Dio dio = Dio();
 
+  // вынеси в BASE_URL
   static const MAIN_URL = "https://api.openweathermap.org/data/2.5/weather";
   final String apiKey;
 
