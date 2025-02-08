@@ -32,7 +32,7 @@ class Http {
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 10,
-        timeLimit: Duration(seconds: 30),
+        timeLimit: Duration(seconds: 20),
       ),
     );
 
