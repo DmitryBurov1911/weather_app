@@ -63,7 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: _isDarkMode ? Colors.white10 : Colors.white,
       body: Padding(
-        padding: const EdgeInsets.only(top: 150, bottom: 150),
+        padding: EdgeInsets.only(
+            top: size.height / 8,
+            bottom: size.height / 8
+        ),
         child: Center(
           child: Column(
             children: [
@@ -89,7 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Lottie.asset(_assetsName),
                   SizedBox(height: size.height / 20,),
                   Text(
-                    "${_weather?.temperature.round()}℃",
+                    "${_weather?.temperature
+                        .round()}℃ / ${_weather?.condition["main"]
+                        ?? "Loading..."} (${_weather?.condition["description"]})",
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         fontSize: 20,
