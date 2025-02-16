@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-// Добавить алиасы
 import '../model/weather_model.dart';
 
 class Http {
@@ -34,7 +33,7 @@ class Http {
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 10,
-        timeLimit: Duration(seconds: 20),
+        timeLimit: Duration(seconds: 40),
       ),
     );
 

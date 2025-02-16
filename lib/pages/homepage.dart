@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _weather = weather;
       });
+      _checkTime();
     } catch (e) {
       print(e);
     }
@@ -34,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _fetchWeather();
-    _checkTime();
     super.initState();
   }
 
@@ -45,12 +45,30 @@ class _MyHomePageState extends State<MyHomePage> {
     if (hour >= 18 || hour <= 6) {
       setState(() {
         _isDarkMode = true;
-        _assetsName = "assets/moon.json";
+        if (_weather?.condition["main"] == "Clouds"
+            || _weather?.condition["main"] == "Mist"
+            || _weather?.condition["main"] == "Haze"
+            || _weather?.condition["main"] == "Dust"
+            || _weather?.condition["main"] == "Fog"
+            || _weather?.condition["main"] == "Sand") {
+          _assetsName = "assets/foggy.json";
+        } if (_weather?.condition["main"] == "Clear") {
+          _assetsName = "assets/moon.json";
+        } if (_weather?.condition["main"] == "Thunderstorm") {
+          _assetsName = "assets/thunder.json";
+        } if (_weather?.condition["main"] == "Drizzle"
+            || _weather?.condition["main"] == "Rain") {
+          _assetsName = "assets/moon_rain.json";
+        } if (_weather?.condition["main"] == "Squall") {
+          _assetsName = "assets/wind.json";
+        } if (_weather?.condition["main"] == "Tornado") {
+          _assetsName = "assets/Tornado.json";
+        }
       });
     } else {
       setState(() {
         _isDarkMode = false;
-        _assetsName = "assets/sunny.json";
+        _assetsName = "assets/foggy.json";
       });
     }
   }
@@ -63,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: _isDarkMode ? Colors.white10 : Colors.white,
       body: Padding(
-        padding: const EdgeInsets.only(top: 150, bottom: 150),
+        padding: EdgeInsets.only(
+            top: size.height / 8,
+            bottom: size.height / 8
+        ),
         child: Center(
           child: Column(
             children: [
@@ -86,10 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   SizedBox(height: size.height / 20,),
-                  Lottie.asset(_assetsName),
+                  _weather?.city == null
+                      ? Lottie.asset("assets/loading.json")
+                      : Lottie.asset(_assetsName),
                   SizedBox(height: size.height / 20,),
                   Text(
-                    "${_weather?.temperature.round()}℃",
+                    "${_weather?.temperature
+                        .round()}℃ / ${_weather?.condition["main"]
+                        ?? "Loading..."} (${_weather?.condition["description"]})",
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         fontSize: 20,
